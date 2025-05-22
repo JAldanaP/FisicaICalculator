@@ -28,7 +28,7 @@ Permite al usuario ingresar las variables del problema, y el sistema calculará 
 ### Opción 1:
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu_usuario/tu_repositorio.git](https://github.com/JAldanaP/FisicaICalculator.git
+   git clone https://github.com/JAldanaP/FisicaICalculator.git
 2. Ejecuta el archivo principal _(main.py)_
    ```
    py main.py
