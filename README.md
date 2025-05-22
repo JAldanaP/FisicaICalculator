@@ -34,3 +34,7 @@ Permite al usuario ingresar las variables del problema, y el sistema calculará 
    py main.py
    ```
 * Requiere Python3 instalado
+
+### Opción 2:
+Descargarlo el ejecutable, presionando aquí:
+[![Botón de descarga](https://cdn.pixabay.com/photo/2016/12/18/13/45/download-1915753_640.png)](https://drive.google.com/file/d/1gUfDIF6_MH3XIU-EHQeaI3GrULvA8PXS/view?usp=sharing)
