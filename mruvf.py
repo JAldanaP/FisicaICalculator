@@ -7,11 +7,12 @@ class mruvclass:
     def __init__(self, color1, pantalla):
         self.pantalla = pantalla
         self.color1 = color1
-        self.Entry: list = []
-        self.frames: list = []
-        self.labels: list = []
-        self.botones: list = []
+        # self.Entry: list = []
+        # self.frames: list = []
+        # self.labels: list = []
+        # self.botones: list = []
         self.m_vel = 'm/s'
+        self.p_ejec = True
         self.magnitudes: list = ["Velocidad final (m/s)", "Velocidad inicial (m/s)", "Aceleración (m/s²)", "Tiempo (s)"
             , "Distancia (m)"]
         self.valores: list = []
@@ -332,6 +333,10 @@ class mruvclass:
 
 
     def mruv(self):
+        self.frames = []
+        self.Entry = []
+        self.labels = []
+        self.botones = []
         self.mruvp = tk.Frame(self.pantalla, background=self.color1)
         self.mruvp2 = tk.Frame(self.mruvp, background=self.color1)
         self.frames.append(tk.Frame(self.mruvp2, background=self.color1))  # Frame 0, Ingreso de datos
@@ -345,6 +350,7 @@ class mruvclass:
         self.botones.append(tk.Button(self.frames[1], text="Limpiar", command=self.limpiar))
         self.botones.append(tk.Button(self.frames[1], text="Calcular", command=self.evaluar))
         self.botones.append(tk.Button(self.frames[1], text=f"{self.m_vel}", command=self.cambiarmagnitud))
+
         self.contruirpantalla()
 
 
@@ -353,7 +359,7 @@ class mruvclass:
             {'text': 'Valor ingresado', 'color': 'lightblue'},
             {'text': 'Valor calculado', 'color': 'lightgreen'}
         ]
-        self.UIbottom = tk.Frame(self.mruvp2, bg=self.color1)
+        self.UIbottom = tk.Frame(self.mruvp, bg=self.color1)
 
         for i, option in enumerate(options):
             item_frame = tk.Frame(self.UIbottom, bg=self.color1)
@@ -405,7 +411,7 @@ class mruvclass:
         for i in self.botones:
             i.grid_forget()
         self.magnitudes: list = [f"Velocidad final ({self.m_vel})", f"Velocidad inicial ({self.m_vel})", f"Aceleración ({self.m_vel}²)", f"Tiempo ({self.m_vel.split('/')[1]})"
-            , f"Distancia ({self.m_vel.split("/")[0]})"]
+            , f"Distancia ({self.m_vel.split('/')[0]})"]
         for i in range(len(self.labels)):
             self.labels[i].config(text=f"{self.magnitudes[i]}")
         self.botones[3].config(text=f"{self.m_vel}")
