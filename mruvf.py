@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 import math
-
+import sys
+import os
 
 class mruvclass:
     def __init__(self, color1, pantalla):
@@ -371,7 +372,8 @@ class mruvclass:
         self.UIbottom.pack(side=tk.BOTTOM, pady=(0, 20))
 
     def leyenda(self):
-        i = tk.PhotoImage(file="help.png")
+        path = os.path.join(sys._MEIPASS, "help.png")
+        i = tk.PhotoImage(file=path)
         self.UILeft= tk.Frame(self.mruvp, bg=self.color1)
         Frameaux = tk.Frame(self.UILeft, bg=self.color1)
         Labels: list = []

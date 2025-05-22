@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
-
+import os
+import sys
 
 class mruclass:
 
@@ -143,7 +144,8 @@ class mruclass:
     def leyenda(self):
         self.UILeft= tk.Frame(self.mrup, bg=self.color1)
         faux = tk.Frame(self.UILeft, bg=self.color1)
-        i = tk.PhotoImage(file="help.png")
+        path = os.path.join(sys._MEIPASS, "help.png")
+        i = tk.PhotoImage(file=path)
         b_au = tk.Button(faux, border=0, image=i, bg=self.color1, command=self.help)
         b_au.image = i
         faux.pack(side=tk.TOP, fill="x")
