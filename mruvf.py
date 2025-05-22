@@ -18,8 +18,6 @@ class mruvclass:
         self.b_vel: bool = False
         for i in range(0, len(self.magnitudes)):
             self.valores.append(None)
-        self.mruv()
-        self.contextual()
         self.df_b = [[True, True, True, True, True], # 0
                 [True, True, True, True, False], # 1
                 [True, True, True, False, True], # 2
@@ -37,9 +35,13 @@ class mruvclass:
                 [False, True, False, True, True], # 14
                 [False, False, True, True, True] # 15
                 ]
+        pass
+
+    def inicializar(self):
+        self.mruv()
+        self.contextual()
         self.leyenda()
         self.mruvp2.pack(side=tk.TOP)
-        pass
 
     def reiniciar(self):
         try:

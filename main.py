@@ -10,8 +10,10 @@ class Aplicacion:
         self.color1 = "#FFF222"
         self.mru = mruclass(self.color1, self.pantalla)
         self.mruv = mruvclass(self.color1, self.pantalla)
+        # self.eli_fra: list = [self.mru.mrup, self.menup, self.enca, self.mruv.mruvp]
         self.menu()
         self.atras()
+        self.eli_fra: list = [self.menup, self.enca]
         self.mostrarpantalla("MENU")
 
 
@@ -34,9 +36,12 @@ class Aplicacion:
             i = i + 1
 
     def mostrarpantalla(self, funcion):
-        for f in (self.mru.mrup, self.menup, self.enca, self.mruv.mruvp):
+        for f in self.eli_fra:
             f.pack_forget()
         if funcion == "MRU":
+            self.mru.inicializar()
+            if self.mru.mrup not in self.eli_fra:
+                self.eli_fra.append(self.mru.mrup)
             self.enca.pack(fill="both", expand=True)
             self.mru.mrup.pack(fill="both", expand=True)
             self.raiz.title("Movimiento Rectilineo Uniforme")
@@ -44,6 +49,9 @@ class Aplicacion:
             self.menup.pack(fill="both", expand=True)
             self.raiz.title("Menu")
         elif funcion == "MRUV":
+            self.mruv.inicializar()
+            if self.mruv.mruvp not in self.eli_fra:
+                self.eli_fra.append(self.mruv.mruvp)
             self.enca.pack(fill="both", expand=True)
             self.mruv.mruvp.pack(fill="both", expand=True)
             self.raiz.title("Movimiento Rectilineo Uniformemente Variado")

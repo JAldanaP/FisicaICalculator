@@ -9,10 +9,13 @@ class mruclass:
         self.pantalla = pantalla
         self.b_vel = False
         self.mag_vel = "m/s"
+        self.valores= [None, None, None]  # Velocidad tiempo distancia
+
+
+    def inicializar(self):
         self.mru()
         self.contextual()
         self.leyenda()
-        self.valores= [None, None, None]  # Velocidad tiempo distancia
         self.UILeft.pack(side=tk.TOP, pady=(0, 10))
         self.mrup2.pack(side=tk.TOP)
         self.UIbottom.pack(side=tk.BOTTOM)
