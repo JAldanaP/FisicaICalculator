@@ -11,9 +11,11 @@ class mruvclass:
         self.frames: list = []
         self.labels: list = []
         self.botones: list = []
+        self.m_vel = 'm/s'
         self.magnitudes: list = ["Velocidad final (m/s)", "Velocidad inicial (m/s)", "Aceleración (m/s²)", "Tiempo (s)"
-            , "Distancia"]
+            , "Distancia (m)"]
         self.valores: list = []
+        self.b_vel: bool = False
         for i in range(0, len(self.magnitudes)):
             self.valores.append(None)
         self.mruv()
@@ -40,23 +42,30 @@ class mruvclass:
         pass
 
     def reiniciar(self):
-        for r in range(0,len(self.Entry)):
-            self.Entry[r].configure(state= tk.NORMAL, readonlybackground='#F0F0F0')
-        self.botones[0].configure(state= tk.NORMAL)
+        try:
+            for r in range(0,len(self.Entry)):
+                self.Entry[r].configure(state= tk.NORMAL, readonlybackground='#F0F0F0')
+                if not self.booleanos[r]:
+                    self.Entry[r].delete(0, tk.END)
+            self.botones[2].configure(state= tk.NORMAL)
+            self.botones[3].configure(state=tk.NORMAL)
+        except AttributeError:
+            pass
 
     def acesinvf(self):
         a = ((self.valores[4] / self.valores[3] - self.valores[1]) * 2) / self.valores[3]
         return a
 
-    def mostrartodo(self):
-        for r in range(0, len(self.valores)):
-            print(f"{self.magnitudes[r]}: {self.valores[r]:.2f}")
+    # def mostrartodo(self):
+    #     for r in range(0, len(self.valores)):
+    #         print(f"{self.magnitudes[r]}: {self.valores[r]:.2f}")
 
     def limpiar(self):
         for r in range(0, len(self.Entry)):
             self.Entry[r].configure(state=tk.NORMAL, disabledforeground='#F0F0F0')
             self.Entry[r].delete(0, tk.END)
-        self.botones[0].configure(state=tk.NORMAL)
+        self.botones[2].configure(state=tk.NORMAL)
+        self.botones[3].configure(state=tk.NORMAL)
 
     def vfsinace(self):
         a = (2 * self.valores[4] / self.valores[3]) - self.valores[1]
@@ -114,12 +123,12 @@ class mruvclass:
         return vi
 
     def evaluarlogica(self, show: bool):
-        self.mostrartodo()
+        # self.mostrartodo()
         evaluador = ((((self.valores[1] + self.valores[0]) / 2) * self.valores[3]) - ((self.valores[1] * self.valores[3]) + (self.valores[2] * (self.valores[3] ** 2) / 2)))
         # evaluador2 = math.sqrt(self.valores[1] ** 2 + 2 * self.valores[2] * self.valores[4]) - self.valores[0]
         evaluador1 = self.valores[1] ** 2 + -1 * (self.valores[0] ** 2) + 2 * self.valores[2] * self.valores[4]
-        print(evaluador)
-        print(evaluador1)
+        # print(evaluador)
+        # print(evaluador1)
         # print(evaluador2)
         if 0.05 >= evaluador >= -0.05 and (0.05 >= evaluador1 >= -0.05):
             for r in range(0, len(self.valores)):
@@ -138,7 +147,6 @@ class mruvclass:
 
     def calcular(self):
         if self.booleanos == self.df_b[0]:
-            print("Se intenta evaluar la lógica")
             self.evaluarlogica(True)
             pass
         elif self.booleanos == self.df_b[1]:
@@ -314,6 +322,8 @@ class mruvclass:
                         self.Entry[i].configure(disabledbackground='lightblue', disabledforeground= 'black')
                     else:
                         self.Entry[i].configure(disabledbackground='lightgreen', disabledforeground= 'black')
+                self.botones[2].configure(state=tk.DISABLED)
+                self.botones[3].configure(state=tk.DISABLED)
                 self.calcular()
             else:
                 tk.messagebox.showerror("Datos insuficientes", "Datos insuficientes para realizar el problema")
@@ -329,14 +339,12 @@ class mruvclass:
         for i in range(0, len(self.magnitudes)):
             self.Entry.append(tk.Entry(self.frames[0], width= 20))
             self.labels.append(tk.Label(self.frames[0], background=self.color1, text=self.magnitudes[i]))
-            self.Entry[i].grid(row=i, column=1, padx=10, pady=3)
-            self.labels[i].grid(row=i, column=0, sticky='W', padx=10, pady=3)
-        self.botones.append(tk.Button(self.frames[1], text="Reiniciar", command=self.reiniciar))
+        self.botones.append(tk.Button(self.frames[1], text="Corregir", command=self.reiniciar))
         self.botones.append(tk.Button(self.frames[1], text="Limpiar", command=self.limpiar))
         self.botones.append(tk.Button(self.frames[1], text="Calcular", command=self.evaluar))
-        self.botones[0].grid(row=0, column=0, pady=10, padx=10)
-        self.botones[1].grid(row=1, column=0, pady=10, padx=10)
-        self.botones[2].grid(row=0, column=2, pady=10, padx=10, rowspan= 2)
+        self.botones.append(tk.Button(self.frames[1], text=f"{self.m_vel}", command=self.cambiarmagnitud))
+        self.contruirpantalla()
+
 
     def contextual(self):
         options = [
@@ -355,13 +363,18 @@ class mruvclass:
         self.UIbottom.pack(side=tk.BOTTOM, pady=(0, 20))
 
     def leyenda(self):
+        i = tk.PhotoImage(file="help.png")
         self.UILeft= tk.Frame(self.mruvp, bg=self.color1)
+        Frameaux = tk.Frame(self.UILeft, bg=self.color1)
         Labels: list = []
+        a_bo = tk.Button(Frameaux, command=self.help, image=i, bg=self.color1, border=0)
+        a_bo.image = i
         parrafo = ("El movimiento rectilíneo uniformemente variado (MRUV), también conocido como movimiento rectilíneo uniformemente\n"
                     "acelerado (MRUA), es un movimiento en el que un cuerpo se desplaza en línea recta, pero su velocidad no es \n"
-                    "constante porque está sometido a una aceleración constante.")
+                    "constante porque está sometido a una aceleración constante.\n \n"
+                   "Ingrese los datos conocidos, los campos vacios se calcularán:")
         Labels.append(tk.Label(self.UILeft,
-                               text="Movimiento Rectilineo Uniforme",
+                               text="Movimiento Rectilineo Uniformemente Variado",
                                font= ("Arial", 16, "bold"),
                                justify=tk.CENTER,
                                bg=self.color1))
@@ -370,6 +383,59 @@ class mruvclass:
                                font=("Arial", 8),
                                justify=tk.LEFT,
                                bg=self.color1))
+        Frameaux.pack(side=tk.TOP, fill="x")
+        a_bo.pack(side=tk.RIGHT, padx=5)
         for l in Labels:
             l.pack(side=tk.TOP)
-        self.UILeft.pack(side=tk.TOP,expand=True, pady=(0, 10), padx=5)
+        self.UILeft.pack(side=tk.TOP, expand=True, pady=(0, 10), padx=5)
+
+    def cambiarmagnitud(self):
+        if self.b_vel:
+            self.b_vel = False
+            self.m_vel = 'm/s'
+        else:
+            self.b_vel = True
+            self.m_vel = 'km/h'
+        for i in self.labels:
+            i.pack_forget()
+        for i in self.Entry:
+            i.pack_forget()
+        for i in self.botones:
+            i.grid_forget()
+        self.magnitudes: list = [f"Velocidad final ({self.m_vel})", f"Velocidad inicial ({self.m_vel})", f"Aceleración ({self.m_vel}²)", f"Tiempo ({self.m_vel.split('/')[1]})"
+            , f"Distancia ({self.m_vel.split("/")[0]})"]
+        for i in range(len(self.labels)):
+            self.labels[i].config(text=f"{self.magnitudes[i]}")
+        self.botones[3].config(text=f"{self.m_vel}")
+        self.contruirpantalla()
+
+    def contruirpantalla(self):
+        for i in range(0, len(self.magnitudes)):
+            self.Entry[i].grid(row=i, column=1, padx=10, pady=3)
+            self.labels[i].grid(row=i, column=0, sticky='W', padx=10, pady=3)
+        self.botones[0].grid(row=0, column=0, pady=10, padx=10)
+        self.botones[1].grid(row=1, column=0, pady=10, padx=10)
+        self.botones[2].grid(row=0, column=2, pady=10, padx=10)
+        self.botones[3].grid(row=1, column=2, pady=10, padx=10)
+
+    def help(self):
+        emergente = tk.Toplevel(bg=self.color1)
+        emergente.title("Ayuda")
+        emergente.geometry("400x420")
+        emergente.resizable(False, False)
+        Label: list = []
+        Label.append(tk.Label(emergente, font=("Helvetica", 14, "bold"), text="¿Cómo usar esta calculadora?", justify=tk.CENTER, bg=self.color1))
+        cuerpo = (
+            "Para utilizar este sistema correctamente, es importante comprender el uso de cada uno de los campos disponibles.\n\n"
+            "Usted puede ingresar entre 3 y 5 valores. Si no se alcanza ese mínimo, el sistema marcará el problema como "
+            "sin solución, ya que no se cuenta con suficiente información (recuerde que el valor 0 sí es válido).\n\n"
+            "El sistema puede realizar dos funciones principales: evaluar o calcular. Esta decisión dependerá de los campos "
+            "que queden vacíos (los cuales, se calcularán, y serán marcados con un color verde claro).\n\n"
+            "En caso de ingresar 4 valores, puede aparecer una advertencia indicando que el problema no tiene solución, ya "
+            "que con esa cantidad de datos el sistema podría ser inválido o erróneo.\n\n"
+            "Si se ingresan los 5 valores, el sistema validará automáticamente si la información es coherente y consistente."
+        )
+        Label.append(tk.Label(emergente, font=("Helvetica", 10), text=cuerpo, justify=tk.LEFT, bg=self.color1,
+                              wraplength=300))
+        for l in Label:
+            l.pack(padx=(5,0))

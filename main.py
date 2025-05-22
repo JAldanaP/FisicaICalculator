@@ -22,6 +22,12 @@ class Aplicacion:
         self.menup = tk.Frame(self.pantalla)
         self.menup.configure(background=self.color1)
         i = 0
+        text = ("Bienvenido a la calculadora de MRUV y MRU.\n Esta calculadora ayudará al usuario a \n"
+                "calcular las magnitudes faltantes de un \n ejercicio determinado, o si bien, corroborar "
+                "la posibilidad \n"
+                "de que exista un determinado fenómeno físico.\n\n Seleccione la opción de su interés:")
+        pres = tk.Label(self.menup, text=f"{text}", bg=self.color1, font=('sans', 10))
+        pres.pack(side=tk.TOP, pady=(10, 0))
         for f in funciones:
             self.menub.append(tk.Button(self.menup, text=f, padx=10, pady=10, command= funciones[f]))
             self.menub[i].pack(padx= 5, pady=20)
@@ -54,11 +60,11 @@ class Aplicacion:
                                justify= tk.RIGHT)
         self.madeof.pack(side= tk.RIGHT)
 
-# Ajustar el tema de las magnitudes
-# Debo de asegurarme que sea intuitivo para el usuario
-# Presentar el tema y mi nombre
-
+# Agregar texto al inicio
+# ¿Organizar de mejor manera? Supongo que es explicar mejor como funciona la calculadora.
+# Quizá haré un botón de ayuda
 
 raiz = tk.Tk()
+raiz.resizable(False, False)
 app = Aplicacion(raiz)
 tk.mainloop()
