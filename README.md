@@ -1,0 +1,36 @@
+# Calculadora de MRU y MRUV
+**Autor:** Jonatán Aldana  
+**Universidad:** Universidad Mariano Gálvez de Guatemala  
+**Curso:** Física I  
+
+---
+Descripción
+
+Este proyecto es una calculadora interactiva desarrollada en Python con interfaz gráfica usando **Tkinter**, diseñada para resolver problemas de:
+
+* Movimiento Rectilíneo Uniforme (MRU)
+* Movimiento Rectilíneo Uniformemente Variado (MRUV)
+
+Permite al usuario ingresar las variables del problema, y el sistema calculará automáticamente las faltantes. También valida los casos sin solución o inconsistentes.
+
+---
+
+## Herramientas utilizadas
+
+- **Python 3**
+- **Tkinter** — para la interfaz gráfica
+- **math** — para los cálculos
+- **auto-py-to-exe** — para generar ejecutables del proyecto
+
+---
+
+## ¿Cómo utilizar el código?
+### Opción 1:
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tu_usuario/tu_repositorio.git](https://github.com/JAldanaP/FisicaICalculator.git
+2. Ejecuta el archivo principal _(main.py)_
+   ```
+   py main.py
+   ```
+* Requiere Python3 instalado
