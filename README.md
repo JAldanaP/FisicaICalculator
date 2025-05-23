@@ -4,7 +4,7 @@
 **Curso:** Física I  
 
 ---
-Descripción
+## Descripción
 
 Este proyecto es una calculadora interactiva desarrollada en Python con interfaz gráfica usando **Tkinter**, diseñada para resolver problemas de:
 
@@ -36,7 +36,7 @@ Permite al usuario ingresar las variables del problema, y el sistema calculará 
 * Requiere Python3 instalado
 
 ### Opción 2:
-Descargarlo el ejecutable, presionando aquí:
+Descargando el ejecutable, presionando aquí:
 
 <a href="https://drive.google.com/file/d/1gUfDIF6_MH3XIU-EHQeaI3GrULvA8PXS/view?usp=sharing">
   <img src="https://cdn.pixabay.com/photo/2016/12/18/13/45/download-1915753_640.png" alt="Botón de descarga" width="200" height="200" />
