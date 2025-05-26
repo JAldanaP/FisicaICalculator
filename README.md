@@ -4,6 +4,11 @@
 **Curso:** Física I  
 
 ---
+## Video de presentación:
+
+[Ver video en YouTube](https://www.youtube.com/watch?v=q7l80LakF50)
+
+---
 ## Descripción
 
 Este proyecto es una calculadora interactiva desarrollada en Python con interfaz gráfica usando **Tkinter**, diseñada para resolver problemas de:
